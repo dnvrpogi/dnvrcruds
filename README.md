@@ -10,6 +10,14 @@ A student-records CRUD application built with ASP.NET Core 8 MVC, Entity Framewo
 - Delete student records
 - Server-side validation for name, student ID, and email
 
+## Technologies
+
+- **Backend:** C# and ASP.NET Core 8 MVC
+- **Frontend:** Razor views, HTML, CSS, and Bootstrap 5
+- **Database:** SQLite
+- **Data access:** Entity Framework Core 8
+- **Development tools:** .NET SDK and Git
+
 ## Requirements
 
 - .NET 8 SDK
