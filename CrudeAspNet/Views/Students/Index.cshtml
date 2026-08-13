@@ -1,0 +1,42 @@
+@model IEnumerable<CrudeAspNet.Models.Student>
+@{ ViewData["Title"] = "Students"; }
+
+<div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3 mb-4">
+    <div>
+        <p class="text-primary text-uppercase fw-semibold small mb-1">Directory</p>
+        <h1 class="page-heading mb-1">Student records</h1>
+        <p class="text-secondary mb-0">Keep your student details organized in one place.</p>
+    </div>
+    <a asp-action="Create" class="btn btn-primary px-4 py-2">+ Add student</a>
+</div>
+
+<section class="surface overflow-hidden">
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead class="table-light"><tr><th>Student</th><th>Student ID</th><th>Email</th><th class="text-end">Actions</th></tr></thead>
+                <tbody>
+                @foreach (var s in Model)
+                {
+                    <tr>
+                        <td><div class="fw-semibold">@s.StudentName</div><small class="text-secondary">Record #@s.Id</small></td>
+                        <td>@s.StudentId</td>
+                        <td>@(string.IsNullOrWhiteSpace(s.Email) ? "—" : s.Email)</td>
+                        <td class="text-end text-nowrap">
+                            <a asp-action="Edit" asp-route-id="@s.Id" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <form method="post" asp-action="Delete" asp-route-id="@s.Id" class="d-inline">
+                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('Delete this student record?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="text-center py-5"><h2 class="h4">No students yet</h2><p class="text-secondary mb-3">Add your first student record to get started.</p><a asp-action="Create" class="btn btn-primary">Add student</a></div>
+    }
+</section>
