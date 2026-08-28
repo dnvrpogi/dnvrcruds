@@ -4,11 +4,6 @@ using CrudeAspNet.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddHttpClient("KierCrudApi", client =>
-{
-    client.BaseAddress = new Uri(builder.Configuration["KierCrudApi:BaseUrl"] ?? "http://localhost:5100");
-    client.Timeout = TimeSpan.FromSeconds(5);
-});
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ApiCors", policy =>
