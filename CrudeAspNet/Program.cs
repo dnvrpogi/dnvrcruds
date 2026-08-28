@@ -4,6 +4,17 @@ using CrudeAspNet.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ApiCors", policy =>
+    {
+        var origins = builder.Configuration.GetSection("AllowedCorsOrigins").Get<string[]>();
+        if (origins?.Length > 0)
+        {
+            policy.WithOrigins(origins).AllowAnyHeader().AllowAnyMethod();
+        }
+    });
+});
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite(
         builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=crude.db;Default Timeout=5",
@@ -45,5 +56,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseStaticFiles();
+app.UseCors("ApiCors");
+app.MapControllers();
 app.MapControllerRoute(name: "default", pattern: "{controller=Students}/{action=Index}/{id?}");
 app.Run();
