@@ -7,7 +7,7 @@ Starts the StudentHub REST API.
 .\scripts\start-api.ps1 -Url "http://0.0.0.0:5000"
 #>
 param(
-    [string] $Url = 'http://localhost:5100'
+    [string] $Url = 'http://0.0.0.0:5000'
 )
 
 $projectPath = Join-Path $PSScriptRoot '..\CrudeAspNet'

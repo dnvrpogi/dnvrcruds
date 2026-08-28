@@ -19,16 +19,16 @@ Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 .\scripts\start-api.ps1
 ```
 
-The default API address is:
+The API listens on port `5000` on all network interfaces. On the host computer, use its LAN IP address:
 
 ```text
-http://localhost:5100
+http://192.168.1.10:5000
 ```
 
 Health check:
 
 ```text
-http://localhost:5100/api/health
+http://192.168.1.10:5000/api/health
 ```
 
 The health response looks like this:
@@ -45,7 +45,7 @@ The health response looks like this:
 Start the API on all network interfaces:
 
 ```powershell
-.\scripts\start-api.ps1 -Url "http://0.0.0.0:5100"
+.\scripts\start-api.ps1 -Url "http://0.0.0.0:5000"
 ```
 
 Find the API computer's local IP address:
@@ -57,7 +57,7 @@ ipconfig
 Other devices on the same network can then use:
 
 ```text
-http://YOUR-COMPUTER-IP:5100
+http://YOUR-COMPUTER-IP:5000
 ```
 
 For example:
@@ -66,7 +66,7 @@ For example:
 http://192.168.1.10:5100/api/students
 ```
 
-Windows Firewall may need an inbound TCP rule for port `5100`.
+Windows Firewall may need an inbound TCP rule for port `5000`.
 
 ## CORS
 
@@ -119,7 +119,7 @@ $body = @{
 } | ConvertTo-Json
 
 Invoke-RestMethod `
-    -Uri "http://localhost:5100/api/students" `
+    -Uri "http://192.168.1.10:5000/api/students" `
     -Method Post `
     -ContentType "application/json" `
     -Body $body
@@ -180,7 +180,7 @@ The API validates that all related records exist and rejects duplicate enrollmen
 ## JavaScript Example
 
 ```javascript
-const API_BASE_URL = "http://localhost:5100";
+const API_BASE_URL = "http://192.168.1.10:5000";
 
 const response = await fetch(`${API_BASE_URL}/api/students`);
 const students = await response.json();
