@@ -20,9 +20,23 @@ namespace CrudeAspNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Courses.Add(course);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (await _db.Courses.AnyAsync(existing => existing.CourseCode == course.CourseCode))
+                {
+                    ModelState.AddModelError(nameof(Course.CourseCode), "That course code already exists.");
+                }
+                else
+                {
+                    try
+                    {
+                        _db.Courses.Add(course);
+                        await _db.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (DbUpdateException)
+                    {
+                        ModelState.AddModelError(nameof(Course.CourseCode), "That course code already exists or could not be saved.");
+                    }
+                }
             }
             return View(course);
         }

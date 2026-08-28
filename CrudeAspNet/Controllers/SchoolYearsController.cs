@@ -20,9 +20,23 @@ namespace CrudeAspNet.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.SchoolYears.Add(schoolYear);
-                await _db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (await _db.SchoolYears.AnyAsync(existing => existing.SchoolYearCode == schoolYear.SchoolYearCode))
+                {
+                    ModelState.AddModelError(nameof(SchoolYear.SchoolYearCode), "That school-year code already exists.");
+                }
+                else
+                {
+                    try
+                    {
+                        _db.SchoolYears.Add(schoolYear);
+                        await _db.SaveChangesAsync();
+                        return RedirectToAction(nameof(Index));
+                    }
+                    catch (DbUpdateException)
+                    {
+                        ModelState.AddModelError(nameof(SchoolYear.SchoolYearCode), "That school-year code already exists or could not be saved.");
+                    }
+                }
             }
             return View(schoolYear);
         }

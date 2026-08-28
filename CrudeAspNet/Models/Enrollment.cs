@@ -15,8 +15,8 @@ namespace CrudeAspNet.Models
         [Range(1, int.MaxValue, ErrorMessage = "Select a school year.")]
         public int SchoolYearId { get; set; }
 
-        public Student Student { get; set; } = null!;
-        public Course Course { get; set; } = null!;
-        public SchoolYear SchoolYear { get; set; } = null!;
+        public Student? Student { get; set; }
+        public Course? Course { get; set; }
+        public SchoolYear? SchoolYear { get; set; }
     }
 }

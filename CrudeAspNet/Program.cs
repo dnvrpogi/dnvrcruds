@@ -5,7 +5,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=crude.db"));
+    options.UseSqlite(
+        builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=crude.db;Default Timeout=5",
+        sqlite => sqlite.CommandTimeout(5)));
 
 var app = builder.Build();
 
@@ -13,6 +15,8 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     db.Database.EnsureCreated();
+    db.Database.ExecuteSqlRaw("PRAGMA journal_mode = WAL;");
+    db.Database.ExecuteSqlRaw("PRAGMA busy_timeout = 5000;");
     db.Database.ExecuteSqlRaw("""
         CREATE TABLE IF NOT EXISTS Courses (
             Id INTEGER NOT NULL CONSTRAINT PK_Courses PRIMARY KEY AUTOINCREMENT,
