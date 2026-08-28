@@ -9,6 +9,9 @@ A student-records CRUD application built with ASP.NET Core 8 MVC, Entity Framewo
 - Edit student information
 - Delete student records
 - Server-side validation for name, student ID, and email
+- Manage courses by course code and course name
+- Manage school years by school-year code, semester, and status
+- Manage enrollments linking a student, course, and school-year code
 
 ## Technologies
 
@@ -52,3 +55,5 @@ scripts/              Windows launch scripts
 ```
 
 The SQLite database is created automatically when the app starts.
+
+The additional management pages are available at `/Courses`, `/SchoolYears`, and `/Enrollments`.

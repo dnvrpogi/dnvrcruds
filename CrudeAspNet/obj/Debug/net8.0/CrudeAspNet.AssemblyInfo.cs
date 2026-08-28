@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CrudeAspNet")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9da73af07337d45a77df915afde0d29fde8058c1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e036ac584ecca7a63e3905abef572143a6028a5c")]
 [assembly: System.Reflection.AssemblyProductAttribute("CrudeAspNet")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CrudeAspNet")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
